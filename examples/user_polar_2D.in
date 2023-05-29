@@ -1,0 +1,19 @@
+300.0d0 % Initial Temperature
+0d12 % flux
+0e-9 %thickness al
+15d-6	% spotsize (m)
+2.8d-6 % probe_size
+100.0d0 % Cold wall Temperature
+150.0d0 % Hot wall Temperature
+40 % Number bands
+1.0d0 % Degree of Specularity
+5 % azimuthal discretization
+5 % polar discretization
+1.0d-9 %  dt_1 timstep size of 1
+1 % max time steps
+1 % periodic time step
+10 % n= no of timestesp in pulse
+10d-9 % total time in pulse
+13.3333333d6 % modulation freq
+1.0d-9 %tol_outer
+0.5 %rel
