@@ -54,35 +54,35 @@ Simple 2D problem using a mesh of 5*5 cells, solving by various parallel approac
 * Boundary condtions: one face is hot isothermal wall (310 K), the other faces are at ambient temperature (300 K)
 * The spectral space is discretized into 40 discretized bands (15 bands with 2 polarizations, 25 bands with 1 polarization)
 * The angular space is discretized into 25 directions
-* Using outer tolerance = inner tolerance = 1E-9
+* Using outer tolerance = inner tolerance = 1E-9. Note: the default value for inner tolerance is 1E-9 defined by mp_RTOL in petsc_solver.f90. However, you can specify the inner tolerance at command line with -ksp_rtol (see example 3 below). The value of outer tolerance is given in model-parameter input file.
 * 282 outer iterations to converge for the 1st time step
 
 <br> 
 
 * Using sequential approach (with SOR preconditioner with relaxation factor 1.25):
->mpirun -np 1 ./tdtr_no_ksub_broi ../examples/2D_5by5_p1.in ../examples/user_polar_2D.in 1 1 -pc_type sor -pc_sor_omega 1.25
-
-<br> 
+```
+mpirun -np 1 ./tdtr_no_ksub_broi ../examples/2D_5by5_p1.in ../examples/user_polar_2D.in 1 1 -pc_type sor -pc_sor_omega 1.25
+```
 
 * Using cell-based approach (5 partitions):
->mpirun -np 5 ./tdtr_no_ksub_broi ../examples/2D_5by5_p5.in ../examples/user_polar_2D.in 1 5 -pc_type sor -pc_sor_omega 1.25
-
-<br> 
+```
+mpirun -np 5 ./tdtr_no_ksub_broi ../examples/2D_5by5_p5.in ../examples/user_polar_2D.in 1 5 -pc_type sor -pc_sor_omega 1.25
+```
 
 * Using combined band+cell-based approach (4 band partitions, 5 cell partitions):
->mpirun -np 20 ./tdtr_no_ksub_broi ../examples/2D_5by5_p5.in ../examples/user_polar_2D.in 4 5 -pc_type sor -pc_sor_omega 1.25
-
-<br> 
+```
+mpirun -np 20 ./tdtr_no_ksub_broi ../examples/2D_5by5_p5.in ../examples/user_polar_2D.in 4 5 -pc_type sor -pc_sor_omega 1.25
+```
 
 * Using batched cell-based method, the 3rd parameter is required for batch size, e.g. running with 1 band partition, 5 cell partitions, and batch size = 5:
->mpirun -np 5 ./tdtr_no_ksub_broi ../examples/2D_5by5_p5.in ../examples/user_polar_2D.in 1 5 5 -pc_type sor -pc_sor_omega 1.25 
-
-<br>
+```
+mpirun -np 5 ./tdtr_no_ksub_broi ../examples/2D_5by5_p5.in ../examples/user_polar_2D.in 1 5 5 -pc_type sor -pc_sor_omega 1.25 
+```
 
 * Using combined band+batched-cell-based method, e.g. running with 4 band partitions, 5 cell partitions, and batch size = 5:
->mpirun -np 20 ./tdtr_no_ksub_broi ../examples/2D_5by5_p5.in ../examples/user_polar_2D.in 4 5 5 -pc_type sor -pc_sor_omega 1.25 
-
-<br>
+```
+mpirun -np 20 ./tdtr_no_ksub_broi ../examples/2D_5by5_p5.in ../examples/user_polar_2D.in 4 5 5 -pc_type sor -pc_sor_omega 1.25 
+```
 
 ## Example 2
 Simple 3D problem using a mesh of 5*5*5 cells, solving by various parallel methods.
@@ -101,27 +101,29 @@ Simple 3D problem using a mesh of 5*5*5 cells, solving by various parallel metho
 <br> 
 
 * Using sequential approach (with SOR preconditioner with relaxation factor 1.25):
->mpirun -np 1 ./tdtr_no_ksub_broi ../examples/3D_5by5by5_p1.in ../examples/user_polar_3D.in 1 1 -pc_type sor -pc_sor_omega 1.25
-
-<br> 
+```
+mpirun -np 1 ./tdtr_no_ksub_broi ../examples/3D_5by5by5_p1.in ../examples/user_polar_3D.in 1 1 -pc_type sor -pc_sor_omega 1.25
+```
 
 * Using cell-based approach (7 partitions):
->mpirun -np 7 ./tdtr_no_ksub_broi ../examples/3D_5by5by5_p7.in ../examples/user_polar_3D.in 1 7 -pc_type sor -pc_sor_omega 1.25
-
-<br> 
+```
+mpirun -np 7 ./tdtr_no_ksub_broi ../examples/3D_5by5by5_p7.in ../examples/user_polar_3D.in 1 7 -pc_type sor -pc_sor_omega 1.25
+```
 
 * Using combined band+cell-based (5 band partitions, 7 cell partitions):
->mpirun -np 35 ./tdtr_no_ksub_broi ../examples/3D_5by5by5_p7.in ../examples/user_polar_3D.in 5 7 -pc_type sor -pc_sor_omega 1.25
-
-<br>
+```
+mpirun -np 35 ./tdtr_no_ksub_broi ../examples/3D_5by5by5_p7.in ../examples/user_polar_3D.in 5 7 -pc_type sor -pc_sor_omega 1.25
+```
 
 * Using batched cell-based method (7 partitions, batch size = 10):
->mpirun -np 7 ./tdtr_no_ksub_broi ../examples/3D_5by5by5_p7.in ../examples/user_polar_3D.in 1 7 10 -pc_type sor -pc_sor_omega 1.25 -my_ksp_convergence
+```
+mpirun -np 7 ./tdtr_no_ksub_broi ../examples/3D_5by5by5_p7.in ../examples/user_polar_3D.in 1 7 10 -pc_type sor -pc_sor_omega 1.25 -my_ksp_convergence
+```
 
 * Using combined band+batched-cell-based method, e.g. running with 5 band partitions, 7 cell partitions, and batch size = 10:
->mpirun -np 35 ./tdtr_no_ksub_broi ../examples/3D_5by5by7_p7.in ../examples/user_polar_3D.in 5 7 10 -pc_type sor -pc_sor_omega 1.25 
-
-<br>
+```
+mpirun -np 35 ./tdtr_no_ksub_broi ../examples/3D_5by5by7_p7.in ../examples/user_polar_3D.in 5 7 10 -pc_type sor -pc_sor_omega 1.25 
+```
 
 ## Example 3
 A device-like structure, 600k cells.\
@@ -139,12 +141,14 @@ The mesh file, 600k_40p.in, can be downloaded at https://drive.google.com/drive/
 <br> 
 
 * Using cell-based appraoch (40 partitions, it takes ~8 hours to complete the first time step when using a relative tolerance of 1E-6 for GMRES (i.e., inner tolerance) and 1E-6 for outer tolerance):
->mpirun -np 40 ./tdtr_no_ksub_broi ../examples/600k_40p.in ../examples/user_polar_600k.in 1 40 -pc_type sor -pc_sor_omega 1.25 -ksp_rtol 1E-6
-
-<br> 
+```
+mpirun -np 40 ./tdtr_no_ksub_broi ../examples/600k_40p.in ../examples/user_polar_600k.in 1 40 -pc_type sor -pc_sor_omega 1.25 -ksp_rtol 1E-6
+```
 
 * Using combined band+cell-based approach (4 partitions in band dimension, 40 partitions in cell dimension):
->mpirun -np 160 ./tdtr_no_ksub_broi ../examples/600k_40p.in ../examples/user_polar_600k.in 4 40 -pc_type sor -pc_sor_omega 1.25 -ksp_rtol 1E-6
+```
+mpirun -np 160 ./tdtr_no_ksub_broi ../examples/600k_40p.in ../examples/user_polar_600k.in 4 40 -pc_type sor -pc_sor_omega 1.25 -ksp_rtol 1E-6
+```
 
 # Format of input files
 
