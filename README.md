@@ -117,7 +117,7 @@ mpirun -np 35 ./tdtr_no_ksub_broi ../examples/3D_5by5by5_p7.in ../examples/user_
 
 * Using batched cell-based method (7 partitions, batch size = 10):
 ```
-mpirun -np 7 ./tdtr_no_ksub_broi ../examples/3D_5by5by5_p7.in ../examples/user_polar_3D.in 1 7 10 -pc_type sor -pc_sor_omega 1.25 -my_ksp_convergence
+mpirun -np 7 ./tdtr_no_ksub_broi ../examples/3D_5by5by5_p7.in ../examples/user_polar_3D.in 1 7 10 -pc_type sor -pc_sor_omega 1.25
 ```
 
 * Using combined band+batched-cell-based method, e.g. running with 5 band partitions, 7 cell partitions, and batch size = 10:
